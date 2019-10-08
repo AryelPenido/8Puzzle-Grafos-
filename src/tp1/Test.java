@@ -57,7 +57,7 @@ public class Test {
             break;
       }
       Vertice v = new Vertice(peças);
-     // v.ImprimeVertice();
+      v.ImprimeVertice();
       
       
         
