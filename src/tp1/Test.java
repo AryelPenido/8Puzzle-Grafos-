@@ -12,9 +12,8 @@ import java.util.Scanner;
  * @author aryels
  */
 public class Test {
+    //teste netbena no git 2
     
-    //teste git no netbeans
-
     public static void main(String[] args) {
         //int[] peças = new int[9];
         Scanner s = new Scanner(System.in);
