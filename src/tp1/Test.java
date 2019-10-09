@@ -11,11 +11,15 @@ import java.util.Scanner;
  *
  * @author aryels
  */
+
 public class Test {
-    //teste netbena no git 2
+
+    
     
     public static void main(String[] args) {
-        //int[] peças = new int[9];
+        int meta[][] = { {1, 2, 3}, {4, 5, 6}, {7, 8, 0} };
+
+
         Scanner s = new Scanner(System.in);
         int opcao;
         
@@ -55,7 +59,7 @@ public class Test {
          
             break;
       }
-      Vertice v = new Vertice(peças);
+      Puzzle v = new Puzzle(peças);
       v.ImprimeVertice();
       
       
