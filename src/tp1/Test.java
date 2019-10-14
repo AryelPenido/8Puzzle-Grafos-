@@ -19,7 +19,7 @@ public class Test {
     public static void main(String[] args) {
         int meta[][] = { {1, 2, 3}, {4, 5, 6}, {7, 8, 0} };
 
-
+        
         Scanner s = new Scanner(System.in);
         int opcao;
         
@@ -59,8 +59,18 @@ public class Test {
          
             break;
       }
-      Puzzle v = new Puzzle(peças);
-      v.ImprimeVertice();
+      
+    Arvore a = new Arvore(peças);
+   
+    System.out.println("");
+  
+    System.out.println("");
+   
+    a.BuscaLargura(meta);
+    
+  
+    
+     
       
       
         
