@@ -30,99 +30,94 @@ public class Arvore {
         fb = null;
     }
     
-    public Arvore(Puzzle joguinho){
+   /* public Arvore(Puzzle joguinho){
         jogo = new Puzzle(joguinho);
         fd = null;
         fe = null;
         fc = null;
         fb = null;
-    }
+    }*/
     
     
     public Puzzle Getjogo(){
-       // System.out.println("getJogo");
-       // jogo.ImprimeVertice();
         return jogo;
     }
-   /* public Puzzle criaNo(int[] value){
-        Puzzle novo = new Puzzle(value);
-        raiz= novo;
-        return novo;
-    }*/
-   
-    public Arvore InsereNo(Puzzle no,int flag){
-        switch (flag){
-            case 0:
-                this.fd = new Arvore(no);
-                return this.fd;
-             
-            case 1:
-                this.fe = new Arvore(no);
-                return this.fe;
-            case 2:
-                this.fb = new Arvore(no);
-                return this.fb;
-            case 3:
-                this.fc = new Arvore(no);
-                return this.fc;
-                
-        }
-            
-        return null;
-    }
-    
-    
-    public Queue  BuscaLargura(int[][] meta,Arvore a){
-       Set<Puzzle> visitados = new HashSet<>(); 
-       Puzzle jogo = new Puzzle (a.Getjogo());
-       Queue <Puzzle> lista = new LinkedList<>();
-       Puzzle jogoAtual = new Puzzle(jogo);
+ 
        
+    
+    public void  BuscaLargura(int[][] meta,Arvore a){
+       Set<Puzzle> visitados = new HashSet<>();
+       Puzzle jogo = new Puzzle (a.Getjogo());
+       Puzzle jogoAtual = new Puzzle(jogo);
+        System.out.println("jogoAtual:");
+        jogoAtual.ImprimeVertice();
+       Queue <Puzzle> lista = new LinkedList<>();
        boolean testa = jogoAtual.FimJogo(meta);
-     
        while(!testa){
-            visitados.add(jogoAtual);
-            jogoAtual = new Puzzle (jogo.MoveDir());
+           visitados.add(jogoAtual);
+           List <Puzzle> movimentos = jogoAtual.CriaFilhos(jogoAtual);
+           if(movimentos != null){
+               for(Puzzle f: movimentos){
+                if(visitados.contains(f))
+                    continue;
+                visitados.add(f);
+                Puzzle filho = new Puzzle(f);
+                jogoAtual.addFilhos(filho);
+                filho.setPai(jogoAtual);
+                lista.add(filho);
+           }
+           jogoAtual = lista.poll();
+           }
+           else{
+               continue;
+           }
            
-            if (!visitados.contains(jogoAtual)){
-                
+       }
+      // return lista;
+       
+       /*boolean testa = jogoAtual.FimJogo(meta);
+       visitados.add(jogo);
+       while(!testa){
+           if(jogo == null)
+               continue;
+            jogoAtual = new Puzzle (jogo.MoveDir());
+            if (!visitados.contains(jogoAtual) && jogoAtual!=null){
                 lista.add(jogoAtual);
                 visitados.add(jogoAtual);
                 a.InsereNo(jogoAtual, 0);
             }
             
             jogoAtual = new Puzzle(jogo.MoveEsq());
-            if (!visitados.contains(jogoAtual)){
-                
+            if (!visitados.contains(jogoAtual) && jogoAtual!=null){
                 lista.add(jogoAtual);
                 visitados.add(jogoAtual);
                 a.InsereNo(jogoAtual, 1);
             }
            
             jogoAtual = new Puzzle (jogo.Movebaixo());
-            if (!visitados.contains(jogoAtual)){
-                
+            if (!visitados.contains(jogoAtual) && jogoAtual!=null){
+                    
                 lista.add(jogoAtual);
                 visitados.add(jogoAtual);
                 a.InsereNo(jogoAtual, 2);
             }
             
             jogoAtual = new Puzzle (jogo.Movecima());
-            if (!visitados.contains(jogoAtual)){
+            if (!visitados.contains(jogoAtual) && jogoAtual!=null){
                
                 lista.add(jogoAtual);
                 visitados.add(jogoAtual);
                 a.InsereNo(jogoAtual, 3);
             }
-            
+          
             jogo = lista.poll();
-            //System.out.println("jogo saindo da fila");
-            //jogo.ImprimeVertice();
+            System.out.println("jogo saindo da fila");
+            jogo.ImprimeVertice();
             testa = jogo.FimJogo(meta);
         }
        return lista;
 
-	
+	*/
 }
     
     

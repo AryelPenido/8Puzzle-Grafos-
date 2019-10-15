@@ -79,8 +79,8 @@ public class Test {
      */
     Arvore a = new Arvore(peças);
     
-    Queue resposta =  a.BuscaLargura(meta,a);
-    a.ImprimeLista(resposta);
+    a.BuscaLargura(meta,a);
+    //a.ImprimeLista(resposta);
      //Puzzle v = new Puzzle(peças);
     /* v.ImprimeVertice();
      Puzzle copia = new Puzzle(v);
