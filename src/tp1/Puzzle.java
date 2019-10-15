@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class Puzzle {
     
     int m[][] = new int[3][3];
-    //ArrayList <Puzzle> filhos;
+   
     
     
     
@@ -24,7 +24,7 @@ public class Puzzle {
         
         for(int i = 0; i< 3; i++){
             for(int j = 0 ; j<3; j++){
-                saida.m[i][j] = this.m[i][j];
+                this.m[i][j]=  saida.m[i][j];
             }
         }  
        
@@ -58,81 +58,80 @@ public class Puzzle {
         return this;
     }
     
-    public boolean Movecima(){
-        System.out.println("cima");
+    public Puzzle Movecima(){
+       // System.out.println("cima");
      for (int i = 0; i < 3; i++){
         for (int j = 0; j < 3; j++){
             if (m[i][j] == 0){
                 if (i > 0){
                 m[i][j] = m[i-1][j];
                 m[i-1][j] = 0;
-                return true;
+                 return this.GetEstadoConsulta();
                 }
             }
         }
     }
-      return false;
+      return this.GetEstadoConsulta();
         
     }
-    
-   public boolean MoveEsq(){
-       System.out.println("esq");
+   
+   public Puzzle MoveEsq(){
+       //System.out.println("esq");
        for (int i = 0; i < 3; i++){
         for (int j = 0; j < 3; j++){
             if (m[i][j] == 0){
-                if (j > 0){
-                m[i][j] = m[i][j-1];
-                m[i][j-1] = 0;
-                return true;
-
+                if (j <2 ){
+                m[i][j] = m[i][j+1];
+                m[i][j+1] = 0;
+                  return this.GetEstadoConsulta();
+                }
             }
+        } 
         }
-    } 
-   }
-       return false;
+      return this.GetEstadoConsulta();
    }
    
    
    
-    public boolean MoveDir(){
-        System.out.println("dir");
+    public Puzzle MoveDir(){
+       // System.out.println("dir");
       for (int i = 0; i < 3; i++){
        for (int j = 0; j < 3; j++){
            if (m[i][j] == 0){
                if (j > 0){
                m[i][j] = m[i][j-1];
                m[i][j-1] = 0;
-               return true;
-           }
+                 return this.GetEstadoConsulta();
+                }
            
-       }
+            }
    
-  }
+        }
      
-    }
-         return false;
+        }
+         return this.GetEstadoConsulta();
     }
 
      
-    public boolean Movebaixo(){
-        System.out.println("baixo");
+    public Puzzle Movebaixo(){
     for (int i = 0; i < 3; i++){
      for (int j = 0; j < 3; j++){
          if (m[i][j] == 0){
-             if (j!= 2){
+             if (i < 2){
              m[i][j] = m[i+1][j];
              m[i+1][j] = 0;
-             return true;
-
+             return this.GetEstadoConsulta();
          }
      }
- }
+     }  
       
    }
-   return false;
+  return this.GetEstadoConsulta();
  }
     
+    
     public void ImprimeVertice(){
+        System.out.println("");
        for (int i = 0; i < 3; i++)  {  
        for (int j = 0; j < 3; j++)     { 
             System.out.print(" "+m[i][j]);

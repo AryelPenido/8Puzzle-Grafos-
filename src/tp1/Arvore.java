@@ -38,6 +38,12 @@ public class Arvore {
         fb = null;
     }
     
+    
+    public Puzzle Getjogo(){
+       // System.out.println("getJogo");
+       // jogo.ImprimeVertice();
+        return jogo;
+    }
    /* public Puzzle criaNo(int[] value){
         Puzzle novo = new Puzzle(value);
         raiz= novo;
@@ -66,78 +72,68 @@ public class Arvore {
     }
     
     
-    public void  BuscaLargura(int[][] meta){
-        Puzzle swap,te;
-        Queue<Arvore> queue = new LinkedList<>();
-        queue.add(this);
-        System.out.println("bl");
+    public Queue  BuscaLargura(int[][] meta,Arvore a){
+       Set<Puzzle> visitados = new HashSet<>(); 
+       Puzzle jogo = new Puzzle (a.Getjogo());
+       Queue <Puzzle> lista = new LinkedList<>();
+       Puzzle jogoAtual = new Puzzle(jogo);
        
-
-        while (!queue.peek().jogo.FimJogo(meta)){
+       boolean testa = jogoAtual.FimJogo(meta);
+     
+       while(!testa){
+            visitados.add(jogoAtual);
+            jogoAtual = new Puzzle (jogo.MoveDir());
            
-            swap = new Puzzle(queue.peek().jogo);
+            if (!visitados.contains(jogoAtual)){
+                
+                lista.add(jogoAtual);
+                visitados.add(jogoAtual);
+                a.InsereNo(jogoAtual, 0);
+            }
+            
+            jogoAtual = new Puzzle(jogo.MoveEsq());
+            if (!visitados.contains(jogoAtual)){
+                
+                lista.add(jogoAtual);
+                visitados.add(jogoAtual);
+                a.InsereNo(jogoAtual, 1);
+            }
            
-           // swap.ImprimeVertice();
-            if(swap.MoveDir()){
-                swap.ImprimeVertice();
-               queue.add(InsereNo(swap, 0));
+            jogoAtual = new Puzzle (jogo.Movebaixo());
+            if (!visitados.contains(jogoAtual)){
+                
+                lista.add(jogoAtual);
+                visitados.add(jogoAtual);
+                a.InsereNo(jogoAtual, 2);
+            }
+            
+            jogoAtual = new Puzzle (jogo.Movecima());
+            if (!visitados.contains(jogoAtual)){
                
+                lista.add(jogoAtual);
+                visitados.add(jogoAtual);
+                a.InsereNo(jogoAtual, 3);
             }
             
-            
-           swap = new Puzzle(queue.peek().jogo);
-            if(swap.MoveEsq()){
-                 swap.ImprimeVertice();
-               queue.add(InsereNo(swap,1));
-            }
-            
-           swap = new Puzzle(queue.peek().jogo);
-            if(swap.Movebaixo()){
-                 swap.ImprimeVertice();
-               queue.add(InsereNo(swap,2));
-            }
-            
-           swap = new Puzzle(queue.peek().jogo);
-            if(swap.Movecima()){
-                swap.ImprimeVertice();
-               queue.add(InsereNo(swap,3));
-            }
-            queue.remove();
-
-            
+            jogo = lista.poll();
+            //System.out.println("jogo saindo da fila");
+            //jogo.ImprimeVertice();
+            testa = jogo.FimJogo(meta);
         }
-        
-        
-    }
-    
-    
-   
-           
-           
-           
-            
-            
-            
-            
-            /*List<String> nodeSuccessors = NodeUtil.getSuccessors(currentNode.getState());
-            for (String n : nodeSuccessors) {
-                if (stateSets.contains(n))
-                    continue;
-                stateSets.add(n);
-                Node child = new Node(n);
-                currentNode.addChild(child);
-                child.setParent(currentNode);
-                queue.add(child);
+       return lista;
 
-            }
-            currentNode = queue.poll();
-            time += 1;
-        }
-
-        NodeUtil.printSolution(currentNode, stateSets, root, time);
-    }*/
 	
 }
+    
+    
+    public void ImprimeLista(Queue lista){
+        for(int i = 0 ; i < lista.size();i++){
+            System.out.println("jogos testados:"+i+lista.poll());
+        }
+    }
+}
+
+
         
         
         

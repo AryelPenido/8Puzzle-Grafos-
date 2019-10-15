@@ -6,6 +6,7 @@
 package tp1;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Queue;
 import java.util.Scanner;
 /**
  *
@@ -60,13 +61,52 @@ public class Test {
             break;
       }
       
+    /* Puzzle v = new Puzzle(peças);
+     System.out.println("");
+     v.ImprimeVertice();
+     v.Movebaixo();
+     System.out.println("");
+     v.ImprimeVertice();
+     v.Movebaixo();
+     System.out.println("");
+     v.ImprimeVertice();
+     v.Movebaixo();
+     System.out.println("");
+     v.ImprimeVertice();
+     v.Movebaixo();
+     System.out.println("");
+     v.ImprimeVertice();
+     */
     Arvore a = new Arvore(peças);
+    
+    Queue resposta =  a.BuscaLargura(meta,a);
+    a.ImprimeLista(resposta);
+     //Puzzle v = new Puzzle(peças);
+    /* v.ImprimeVertice();
+     Puzzle copia = new Puzzle(v);
+     System.out.println("");
+     v.Movebaixo();
+     System.out.println("V após movimento");
+     v.ImprimeVertice();
+     System.out.println("");
+     copia.ImprimeVertice();
+     */
+     //Puzzle v = a.Getjogo();
+     
+     
+     
+     
+     
+     
+     
+     
+    //Arvore a = new Arvore(peças);
    
     System.out.println("");
   
     System.out.println("");
    
-    a.BuscaLargura(meta);
+    //a.BuscaLargura(meta);
     
   
     
