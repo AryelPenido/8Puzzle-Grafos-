@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tp1;
+package tp1.pkg2;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +41,8 @@ public class Puzzle {
             for(int j = 0 ; j<3; j++){
                 this.m[i][j]=  saida.m[i][j];
             }
-        }  
+        }
+        this.filhos = new ArrayList<>();
        
     }
     
@@ -59,6 +60,10 @@ public class Puzzle {
         return true;
     }
     
+    
+    public Puzzle GetPai(){
+        return this.pai;
+    }
     public int[] GetEstadoCriar(){
         int[] estado = new int[9];
         for(int i = 0 ; i < 3; i++){
@@ -74,7 +79,7 @@ public class Puzzle {
         return this;
     }
     
-    public Puzzle Movecima(){
+    public void Movecima(){
        // System.out.println("cima");
      for (int i = 0; i < 3; i++){
         for (int j = 0; j < 3; j++){
@@ -82,123 +87,100 @@ public class Puzzle {
                 if (i > 0){
                 m[i][j] = m[i-1][j];
                 m[i-1][j] = 0;
-                 return this.GetEstadoConsulta();
+                 return;
                 }
             }
         }
-    }
-      return null;
-        
+     }    
     }
    
-   public Puzzle MoveEsq(){
-       //System.out.println("esq");
+   public void MoveEsq(){
        for (int i = 0; i < 3; i++){
         for (int j = 0; j < 3; j++){
             if (m[i][j] == 0){
                 if (j <2 ){
                 m[i][j] = m[i][j+1];
                 m[i][j+1] = 0;
-                  return this.GetEstadoConsulta();
+                return;
                 }
             }
         } 
-        }
-      return null;
+       }
+     
    }
    
    
    
-    public Puzzle MoveDir(){
-       // System.out.println("dir");
+    public void MoveDir(){
       for (int i = 0; i < 3; i++){
        for (int j = 0; j < 3; j++){
            if (m[i][j] == 0){
                if (j > 0){
                m[i][j] = m[i][j-1];
                m[i][j-1] = 0;
-                 return this.GetEstadoConsulta();
+                return;
                 }
            
             }
    
         }
      
-        }
-         return null;
+       }
+      
     }
 
      
-    public Puzzle Movebaixo(){
+    public void Movebaixo(){
     for (int i = 0; i < 3; i++){
      for (int j = 0; j < 3; j++){
          if (m[i][j] == 0){
              if (i < 2){
              m[i][j] = m[i+1][j];
              m[i+1][j] = 0;
-              return this.GetEstadoConsulta();
+             return;
          }
      }
      }  
       
    }
-    return null;
- 
+
  }
-    public void addFilhos(Puzzle ff){
-      this.filhos.add(ff);
+    public void addFilhos(Puzzle ff,Puzzle ja){
+      ja.filhos.add(ff);
     }
     
     
     public void setPai(Puzzle pai){
         this.pai = pai;
     }
-    public List CriaFilhos(Puzzle jogoAtual){
-       System.out.println("Criando filhos");
+    public List CriaFilhos(){
+       //System.out.println("Criando filhos");
        List <Puzzle> sucessores = new ArrayList<>();
-       Puzzle jogo = new Puzzle(jogoAtual.GetEstadoConsulta());
-       jogoAtual = jogoAtual.MoveDir();
-      // System.out.println("jogo muda?");
-      // jogo.ImprimeVertice();
-       if(jogoAtual!= null){
-           System.out.println("apos direita");
-           jogoAtual.ImprimeVertice();
-           sucessores.add(jogoAtual);
-       }
-       Puzzle swap = new Puzzle (jogo);
-        swap = swap.MoveEsq();
-        //System.out.println("jogo  muda2?");
-       // jogo.ImprimeVertice();
-       if(swap != null){
-           System.out.println("apos esquerda");
-           swap.ImprimeVertice();
-           sucessores.add(swap);
-       } 
-       swap = new Puzzle (jogo);
-       swap = swap.Movebaixo();
-        //System.out.println("jogo  muda3?");
-        //jogo.ImprimeVertice();
-       if(swap != null){
-           System.out.println("apos baixo");
-           swap.ImprimeVertice();
-           sucessores.add(swap);
-       }
-       swap = new Puzzle (jogo);
-       swap = swap.Movecima();
-       // System.out.println("jogo  muda4?");
-       // jogo.ImprimeVertice();
-       if(swap!= null){
-           System.out.println("apos cima");
-           swap.ImprimeVertice();
-          sucessores.add(swap);
-       }
+       Puzzle jogo = new Puzzle(this.GetEstadoConsulta());
+       jogo.MoveDir();
+       sucessores.add(jogo);
        
+       jogo = new Puzzle (this.GetEstadoConsulta());
+       jogo.MoveEsq();
+       sucessores.add(jogo);
+       
+       jogo =new Puzzle(this.GetEstadoConsulta());
+       jogo.Movebaixo();
+       //System.out.println("move baixo");
+       //jogo.ImprimeVertice();
+       sucessores.add(jogo);
+               
+       jogo = new Puzzle (this.GetEstadoConsulta());
+       jogo.Movecima();
+      // System.out.println("move cima");
+       //jogo.ImprimeVertice();
+       sucessores.add(jogo);
        return sucessores;
     }
     
     
     public void ImprimeVertice(){
-        System.out.println("");
+        //System.out.println("");
        for (int i = 0; i < 3; i++)  {  
        for (int j = 0; j < 3; j++)     { 
             System.out.print(" "+m[i][j]);
@@ -209,4 +191,3 @@ public class Puzzle {
 }
 
     
-
