@@ -48,81 +48,66 @@ public class TP12 {
             Collections.shuffle(numeros);
             
            
-           /* for(int i = 0; i< numeros.size(); i++){
+           for(int i = 0; i< numeros.size(); i++){
                 peças[i] =(int)numeros.get(i);
                 System.out.println("peças: "+peças[i]);
-            }*/
+            }
              
              break;
             
           case 2:
             for(int i = 0; i < 9; i++){
-                System.out.println("entre com os valores da matriz,sem repetição, 0 representa a posição vazia");
+                System.out.println("##Entre com os valores da matriz,sem repetição, 0 representa a posição vazia##");
                 peças[i] = s.nextInt();
             }
          
             break;
       }
       
-    /* Puzzle v = new Puzzle(peças);
-     System.out.println("");
-     v.ImprimeVertice();
-     v.Movebaixo();
-     System.out.println("");
-     v.ImprimeVertice();
-     v.Movebaixo();
-     System.out.println("");
-     v.ImprimeVertice();
-     v.Movebaixo();
-     System.out.println("");
-     v.ImprimeVertice();
-     v.Movebaixo();
-     System.out.println("");
-     v.ImprimeVertice();
-     */
     Arvore a = new Arvore(peças);
-    //a.BuscaProfundidade(meta, a);
-    Puzzle resultado = a.BuscaLargura(meta,a);
-    a.ImpriemResultado(resultado);
-    /*Puzzle v = new Puzzle(peças);
-    List<Puzzle> movimentos =  v.CriaFilhos();
-    System.out.println("jogos da lista");
-    for(Puzzle f: movimentos){
-        //System.out.println(movimentos.get(i));
-        f.ImprimeVertice();
-    }*/
-   
-    
-    //a.ImprimeLista(resposta);
-     //Puzzle v = new Puzzle(peças);
-    /* v.ImprimeVertice();
-     Puzzle copia = new Puzzle(v);
-     System.out.println("");
-     v.Movebaixo();
-     System.out.println("V após movimento");
-     v.ImprimeVertice();
-     System.out.println("");
-     copia.ImprimeVertice();
-     */
-     //Puzzle v = a.Getjogo();
-     
-     
-     
-     
-     
-     
-     
-     
-    //Arvore a = new Arvore(peças);
-   
     System.out.println("");
-  
-    System.out.println("");
-   
-    //a.BuscaLargura(meta);
-    
-  
-    
+    System.out.println("##Digite 1 para busca em largura##");
+    System.out.println("##Digite 2 para busca em profundidade##");
+    opcao = s.nextInt();
+    switch(opcao){
+        case 0 :
+                System.exit(0);
+                break;
+        case 1:
+            
+            Puzzle resultado = a.BuscaLargura(meta);
+            Puzzle raiz = a.Getjogo();
+ 
+            if(resultado != a.Getjogo()){
+                System.out.println("Busca em Largura:");
+                 a.ImpriemResultado(resultado);
+            }
+            else{
+                System.out.println("solução não encontrada");
+                int n = a.getnos();
+                System.out.println("numero de nos criados: "+n);
+            }
+            break;
+
+        
+        case 2:
+            
+            resultado = a.BuscaProfundidade(meta);
+            raiz = a.Getjogo();
+            //raiz.ImprimeVertice();
+            if(resultado != a.Getjogo()){
+                System.out.println("Busca em Profundidade");
+                a.ImpriemResultado(resultado);
+            }
+            else{
+                System.out.println("solução não encontrada");
+                int n = a.getnos();
+                System.out.println("numero de nos criados: "+n);
+            }
+
+            break;
+            
+    }  
 }
     }
 }

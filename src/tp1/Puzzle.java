@@ -32,7 +32,7 @@ public class Puzzle {
             }
         }  
        this.filhos = new ArrayList<>();
-        
+       this.nivel = 0;
     }
     
     public Puzzle(Puzzle saida){
@@ -43,22 +43,12 @@ public class Puzzle {
             }
         }
         this.filhos = new ArrayList<>();
-       
+        this.nivel = saida.nivel++;
     }
     
-  
-    public boolean FimJogo(int[][] meta){
-        int[][] atual = this.m;
-        for(int i = 0; i < 3; i++){
-            for(int j = 0; j < 3; j++){
-                if(atual[i][j] != meta[i][j]){
-                    return false;
-                }
-            }
-        }
-        System.out.println("fim do jogo");
-        return true;
-    }
+  public void setNivel(int nivel){
+      this.nivel = nivel;
+  }
     
     
     public Puzzle GetPai(){
@@ -73,11 +63,23 @@ public class Puzzle {
         }
         return estado;
     }
-   
-    public Puzzle GetEstadoConsulta(){
-        //this.ImprimeVertice();
+   public Puzzle GetEstadoConsulta(){
         return this;
     }
+    
+    
+    public boolean FimJogo(int[][] meta){
+        int[][] atual = this.m;
+        for(int i = 0; i < 3; i++){
+            for(int j = 0; j < 3; j++){
+                if(atual[i][j] != meta[i][j]){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    
     
     public void Movecima(){
        // System.out.println("cima");
@@ -154,7 +156,6 @@ public class Puzzle {
         this.pai = pai;
     }
     public List CriaFilhos(){
-       //System.out.println("Criando filhos");
        List <Puzzle> sucessores = new ArrayList<>();
        Puzzle jogo = new Puzzle(this.GetEstadoConsulta());
        jogo.MoveDir();
@@ -166,25 +167,21 @@ public class Puzzle {
        
        jogo =new Puzzle(this.GetEstadoConsulta());
        jogo.Movebaixo();
-       //System.out.println("move baixo");
-       //jogo.ImprimeVertice();
        sucessores.add(jogo);
                
        jogo = new Puzzle (this.GetEstadoConsulta());
        jogo.Movecima();
-      // System.out.println("move cima");
-       //jogo.ImprimeVertice();
        sucessores.add(jogo);
        return sucessores;
     }
     
     
     public void ImprimeVertice(){
-        //System.out.println("");
-       for (int i = 0; i < 3; i++)  {  
+       for (int i = 0; i < 3; i++)  {
        for (int j = 0; j < 3; j++)     { 
             System.out.print(" "+m[i][j]);
-       }  
+       }
+       
        System.out.println(" ");
      }    
 }
